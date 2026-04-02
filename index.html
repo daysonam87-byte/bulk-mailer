@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bulk Mail Sender</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f5f5;
+padding:20px;
+}
+
+.box{
+background:white;
+padding:20px;
+border-radius:10px;
+max-width:500px;
+margin:auto;
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+padding:10px;
+background:blue;
+color:white;
+border:none;
+cursor:pointer;
+width:100%;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Bulk Mail Sender</h2>
+
+<input type="text" id="email" placeholder="Your Gmail">
+<input type="password" id="pass" placeholder="App Password">
+
+<input type="text" id="subject" placeholder="Subject">
+
+<textarea id="message" placeholder="Message"></textarea>
+
+<textarea id="list" placeholder="Emails (comma separated)"></textarea>
+
+<button onclick="send()">Send Bulk Mail</button>
+
+</div>
+
+<script>
+
+function send(){
+
+fetch("/send",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+email:email.value,
+pass:pass.value,
+subject:subject.value,
+message:message.value,
+list:list.value
+})
+
+}).then(res=>res.text())
+.then(data=>alert(data))
+
+}
+
+</script>
+
+</body>
+</html>
